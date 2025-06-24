@@ -11,83 +11,95 @@ import {
 } from "../features/coupon/couponSlice";
 import CustomModal from "../components/CustomModal";
 
-const columns = [
-  {
-    title: "SNo",
-    dataIndex: "key",
-  },
-
-  {
-    title: "Name",
-    dataIndex: "name",
-    sorter: (a, b) => a.name.length - b.name.length,
-  },
-  {
-    title: "Discount",
-    dataIndex: "discount",
-    sorter: (a, b) => a.discount - b.discount,
-  },
-  {
-    title: "Expiry",
-    dataIndex: "expiry",
-    sorter: (a, b) => a.name.length - b.name.length,
-  },
-  {
-    title: "Action",
-    dataIndex: "action",
-  },
-];
-
 const Couponlist = () => {
   const [open, setOpen] = useState(false);
   const [couponId, setcouponId] = useState("");
-  const showModal = (e) => {
+  const dispatch = useDispatch();
+
+  const showModal = (id) => {
     setOpen(true);
-    setcouponId(e);
+    setcouponId(id);
   };
 
   const hideModal = () => {
     setOpen(false);
   };
-  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(resetState());
     dispatch(getAllCoupon());
-  }, []);
+  }, [dispatch]);
+
   const couponState = useSelector((state) => state.coupon.coupons);
-  const data1 = [];
-  for (let i = 0; i < couponState.length; i++) {
-    data1.push({
-      key: i + 1,
-      name: couponState[i].name,
-      discount: couponState[i].discount,
-      expiry: new Date(couponState[i].expiry).toLocaleString(),
+
+  const today = new Date().toLocaleString('en-US').split("T")[0]; // YYYY-MM-DD format
+
+  const data1 = couponState.map((coupon, index) => {
+    const expiryDate = new Date(coupon.expiry);
+    const expiryDateStr = expiryDate.toLocaleString('en-US').split("T")[0];
+    const isToday = expiryDateStr === today;
+
+    return {
+      key: index + 1,
+      name: coupon.name,
+      discount: coupon.discount,
+      expiry: isToday
+        ? `${expiryDate.toLocaleString()} (Today)`
+        : expiryDate.toLocaleString(),
+      expiryRaw: expiryDate, // Used for sorting
       action: (
         <>
           <Link
-            to={`/admin/coupon/${couponState[i]._id}`}
-            className=" fs-3 text-danger"
+            to={`/admin/coupon/${coupon._id}`}
+            className="fs-3 text-danger"
           >
             <BiEdit />
           </Link>
           <button
             className="ms-3 fs-3 text-danger bg-transparent border-0"
-            onClick={() => showModal(couponState[i]._id)}
+            onClick={() => showModal(coupon._id)}
           >
             <AiFillDelete />
           </button>
         </>
       ),
-    });
-  }
-  const deleteCoupon = (e) => {
-    dispatch(deleteACoupon(e));
+    };
+  });
 
+  const columns = [
+    {
+      title: "SNo",
+      dataIndex: "key",
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      sorter: (a, b) => a.name.length - b.name.length,
+    },
+    {
+      title: "Discount",
+      dataIndex: "discount",
+      sorter: (a, b) => a.discount - b.discount,
+    },
+    {
+      title: "Expiry",
+      dataIndex: "expiry",
+      sorter: (a, b) => new Date(a.expiryRaw) - new Date(b.expiryRaw),
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+    },
+  ];
+
+  const deleteCoupon = (id) => {
+    dispatch(deleteACoupon(id));
     setOpen(false);
     setTimeout(() => {
       dispatch(getAllCoupon());
     }, 100);
   };
+
   return (
     <div>
       <h3 className="mb-4 title">Coupons</h3>

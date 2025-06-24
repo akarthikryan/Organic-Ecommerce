@@ -146,7 +146,7 @@ const Checkout = () => {
       key: "rzp_test_HSSeDI22muUrLR", // Enter the Key ID generated from the Dashboard
       amount: amount,
       currency: currency,
-      name: "Uyir Organic",
+      name: "Cart's corner",
       description: "Test Transaction",
 
       order_id: order_id,
@@ -178,7 +178,7 @@ const Checkout = () => {
       },
       prefill: {
         name: "Dev Corner",
-        email: "uyirorganicorganize@.com",
+        email: "devcorner@example.com",
         contact: "9999999999",
       },
       notes: {

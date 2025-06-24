@@ -6,11 +6,11 @@ const BlogCard = (props) => {
   return (
     <div className="blog-card">
       <div className="card-image">
-        <img
+        {/* <img
           src={image ? image : "images/blog-1.jpg"}
           className="img-fluid w-100"
           alt="blog"
-        />
+        /> */}
       </div>
       <div className="blog-content">
         <p className="date">{date}</p>

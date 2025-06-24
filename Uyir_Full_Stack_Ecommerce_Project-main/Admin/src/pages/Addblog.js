@@ -119,7 +119,7 @@ const Addblog = () => {
               type="text"
               label="Enter Blog Title"
               name="title"
-              onChange={formik.handleChange("title")}
+              onChng={formik.handleChange("title")}
               onBlr={formik.handleBlur("title")}
               val={formik.values.title}
             />
@@ -157,7 +157,7 @@ const Addblog = () => {
           <div className="error">
             {formik.touched.description && formik.errors.description}
           </div>
-          <div className="bg-white border-1 p-5 text-center mt-3">
+          {/* <div className="bg-white border-1 p-5 text-center mt-3">
             <Dropzone
               onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
             >
@@ -187,7 +187,7 @@ const Addblog = () => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
 
           <button
             className="btn btn-success border-0 rounded-3 my-5"

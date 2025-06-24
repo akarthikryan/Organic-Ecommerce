@@ -211,7 +211,7 @@ const Home = () => {
             <h3 className="section-heading">Our Popular Products</h3>
           </div>
         </div>
-        <div className="row">
+        <div className="row g-3">
           {productState &&
             productState?.map((item, index) => {
               if (item.tags === "popular") {

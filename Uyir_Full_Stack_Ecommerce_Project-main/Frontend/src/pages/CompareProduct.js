@@ -92,8 +92,8 @@ const CompareProduct = () => {
                   <div className="product-detail">
                     <h5>Size:</h5>
                     <div className="d-flex gap-10">
-                      <p>S</p>
-                      <p>M</p>
+                      <p>gm</p>
+                      <p>kg</p>
                     </div>
                   </div>
                 </div>

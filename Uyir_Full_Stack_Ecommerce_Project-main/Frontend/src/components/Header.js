@@ -124,7 +124,7 @@ const Header = () => {
                     <img src={user} alt="user" />
                     {authState?.user === null ? (
                       <p className="mb-0">
-                        Log in <br /> My Account
+                        Log in <br /> 
                       </p>
                     ) : (
                       <p className="mb-0">
