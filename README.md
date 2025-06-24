@@ -1,0 +1,1 @@
+This is a full-stack web application developed using the MERN stack — MongoDB for the database, Express.js and Node.js for the backend, and React.js for the frontend. The project provides seamless integration between the frontend and backend with efficient data handling and modern UI design.
